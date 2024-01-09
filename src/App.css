@@ -1,0 +1,25 @@
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.comments-cointainer {
+  width: 100%;
+}
+
+.wrapper {
+  background-color: #f8f8f8;
+  border: 1px solid #dddddd;
+  padding: 16px;
+  border-radius: 4px;
+}

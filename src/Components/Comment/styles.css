@@ -1,0 +1,33 @@
+.comment {
+    margin-top: 16px;
+    position: relative;
+    padding-bottom: 0;
+}
+
+.comment .head  {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+.comment .head h5 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.comment .head .date {
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.comment-replies {
+    margin-left: 100px;
+}
+
+.delete-comment-btn {
+    background-color: #000;
+    color: #000;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(50%, -50%);
+}
