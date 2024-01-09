@@ -1,4 +1,5 @@
 import React from 'react'
+import './styles.css';
 
 export default function InputComponent({
     name,
@@ -7,12 +8,19 @@ export default function InputComponent({
     onChange,
     type = 'text'
 }) {
+    const props = { 
+        name,
+        className: 'input-box',
+        value,
+        onChange,
+        placeholder: label
+    }
     return <div className='input-container'>
-        <label htmlFor={name}>{label}</label>
+        {/* <label htmlFor={name}>{label}</label> */}
         {
             type === 'textarea'
-            ? <textarea name={name} className="input-box" value={value} onChange={onChange} />
-            : <input name={name} type={type} className='input-box' value={value} onChange={onChange} />
+            ? <textarea {...props} />
+            : <input type={type} {...props} />
         }
     </div>
 }

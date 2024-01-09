@@ -10,7 +10,7 @@ export default function CommentForm({
     label = 'Comment'
 }) {
     const [form, setForm] = useState({
-        senderName: '',
+        name: '',
         message: ''
     });
     
@@ -35,11 +35,13 @@ export default function CommentForm({
             <h5 className='form-label'>{label}</h5>
             <div className='form-content'>
                 <InputComponent
-                    name="senderName"
-                    value={form.senderName}
+                    label="Name"
+                    name="name"
+                    value={form.name}
                     onChange={handleInputChange}
                 />
                 <InputComponent
+                    label={label}
                     type="textarea"
                     name="message"
                     value={form.message}

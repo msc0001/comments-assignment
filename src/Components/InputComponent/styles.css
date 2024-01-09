@@ -1,0 +1,14 @@
+.input-container .input-box {
+    resize: none;
+    width: calc(100% - 16px);
+    padding: 8px;
+    border: 1px solid #dddddd;
+    background-color: #ffffff;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 2px;
+}
+
+.input-container .input-box:active, .input-container .input-box:focus {
+    border: 1px solid #027be5;
+}

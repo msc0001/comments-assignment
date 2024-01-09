@@ -51,3 +51,7 @@
     background-color: #c94949;
     border-color: #c94949;
 }
+
+.comment .actions > * {
+    margin-right: 10px;
+}
