@@ -4,12 +4,14 @@ import './styles.css';
 import { deleteCommentAction } from '../../Store';
 import Button from '../Button';
 import { getTimeString } from '../../Helpers/time';
+import CommentForm from '../CommentForm';
+import DeleteIcon from '../Icons/DeleteIcon';
 
 const Time = memo(({ time }) => {
     return <span className='date'>{getTimeString(time)}</span>
 })
 
-export default function Comment({ id }) {
+export default function Comment({ id, allowReply }) {
     const { comment, childrenComments }  = useSelector(state => ({
         comment: state.commentDetails[id],
         childrenComments: state.connections[id]
@@ -30,7 +32,8 @@ export default function Comment({ id }) {
 
         return (
             <div className='comment-replies'>
-                {childrenComments.map(id => <Comment key={id} id={id} />)}
+                <CommentForm parentId={id} label={'Reply'} />
+                {childrenComments.map(commentId => <Comment key={commentId} id={commentId} />)}
             </div>
         )
     }
@@ -47,10 +50,12 @@ export default function Comment({ id }) {
                     {message}
                 </p>
                 <div className='actions'>
-                    <Button type='text'>Reply</Button>
-                    <Button type='text'>Edit</Button>
+                    {allowReply ? <Button variantType='text'>Reply</Button> : null}
+                    <Button variantType='text'>Edit</Button>
                 </div>
-                <Button className="delete-comment-btn" onClick={deleteComment}>d</Button>
+                <Button className="delete-comment-btn" onClick={deleteComment}>
+                    <DeleteIcon size={10} />
+                </Button>
             </div>
             {renderReplies()}
         </div>

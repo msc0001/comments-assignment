@@ -3,7 +3,7 @@ const commentsData = [
     {
         id: 1,
         name: 'Ram sunder',
-        message: 'this is an comment',
+        message: 'this is an comment this is an comment this is an comment this is an comment this is an comment this is an comment this is an comment ',
         createdAt: new Date('7 Jan 2024').getTime(),
         parent: null,
     },

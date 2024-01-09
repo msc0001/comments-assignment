@@ -1,19 +1,21 @@
 import React from 'react'
 import './styles.css';
 
-// type - text, block
+// variantType - text, block
 // variant - primary
 export default function Button({
     className,
     children,
     onClick,
-    type = 'block',
+    type = 'button',
+    variantType = 'block',
     variant = 'primary',
     disabled = false
 }) {
     return (
         <button
-            className={`btn ${className} ${variant}-btn ${type}-btn${disabled ? ' disabled' : ''}`}
+            type={type}
+            className={`btn ${variant}-btn ${variantType}-btn${disabled ? ' disabled' : ''} ${className}`}
             onClick={onClick}
             disabled={disabled}
         >

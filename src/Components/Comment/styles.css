@@ -11,7 +11,7 @@
 }
 .comment .head h5 {
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 10px;
 }
 
 .comment .head .date {
@@ -19,15 +19,35 @@
     font-weight: 500;
 }
 
+.comment .message {
+    margin: 6px 0;
+    font-size: 14px;
+}
+
 .comment-replies {
     margin-left: 100px;
 }
 
-.delete-comment-btn {
-    background-color: #000;
-    color: #000;
+.comment .delete-comment-btn {
+    background-color: #515151;
     position: absolute;
+    border-color: #515151;
     right: 0;
     top: 50%;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transform: translate(50%, -50%);
+}
+.comment .delete-comment-btn svg path {
+    fill: #eeeeee;
+}
+
+.comment .delete-comment-btn:hover {
+    background-color: #c94949;
+    border-color: #c94949;
 }
