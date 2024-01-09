@@ -11,6 +11,25 @@ const Time = memo(({ time }) => {
     return <span className='date'>{getTimeString(time)}</span>
 })
 
+const Message = ({ message, limit = 120 }) => {
+    const [show, setShow] = useState(false);
+    
+    if (message?.length + 3 <= limit) {
+        return message;
+    }
+
+    return <span className='message-text-container'>
+        {show ? message : (message.substring(0, limit - 3) + "...")}
+        <Button 
+            variantType='text'
+            className={"show-message-btn"}
+            onClick={() => setShow(prev => !prev)}
+        >
+            {show ? 'Show less' : 'Show more'}
+        </Button>
+    </span>
+}
+
 export default function Comment({ id, allowReply }) {
     const comment = useSelector(state => state.commentDetails[id]);
     const childrenComments  = useSelector(state => state.connections[id]);
@@ -55,8 +74,8 @@ export default function Comment({ id, allowReply }) {
                     <Time time={createdAt} />
                 </div>
                 <p className='message'>
-                    {edited ? (<span></span>) : null}
-                    {message}
+                    {edited ? (<span className='edited-tag'>Edited</span>) : null}
+                    <Message message={message} />
                 </p>
                 <div className='actions'>
                     {allowReply

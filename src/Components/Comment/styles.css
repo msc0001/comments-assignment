@@ -30,9 +30,18 @@
     margin: 6px 0;
     font-size: 14px;
 }
+.comment .message-text-container {
+    display: inline;
+}
+
+.comment .message-text-container .show-message-btn {
+    margin-left: 6px;
+    padding: 0;
+    font-weight: 400;
+}
 
 .comment-replies {
-    margin-left: 100px;
+    margin-left: 10%;
 }
 
 .comment .delete-comment-btn {
