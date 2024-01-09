@@ -1,17 +1,20 @@
 import React from 'react';
-import './App.css';
+import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux';
-import store from './Store';
+import './App.css';
+import store, { persistor } from './Store';
 import CommentList from './Components/CommentList';
 
 function App() {
   return (
     <Provider store={store}>
-      <div className="App">
-        <main className='container'>
-            <CommentList />
-        </main>
-      </div>
+      <PersistGate loading={null} persistor={persistor}>
+        <div className="App">
+          <main className='container'>
+              <CommentList />
+          </main>
+        </div>
+      </PersistGate>
     </Provider>
   );
 }

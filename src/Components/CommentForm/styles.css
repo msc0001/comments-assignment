@@ -3,7 +3,7 @@
 }
 
 .comment-form .form-label {
-    margin: 0 0 6px 0;
+    margin: 0 0 16px 0;
     color: #666;
 }
 
@@ -18,5 +18,5 @@
 .comment-form .form-actions {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
 }

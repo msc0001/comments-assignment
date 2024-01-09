@@ -1,48 +1,57 @@
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 import './styles.css';
-import { deleteCommentAction } from '../../Store';
 import Button from '../Button';
 import { getTimeString } from '../../Helpers/time';
 import CommentForm from '../CommentForm';
 import DeleteIcon from '../Icons/DeleteIcon';
+import { deleteCommentAction } from '../../Store/actions';
 
 const Time = memo(({ time }) => {
     return <span className='date'>{getTimeString(time)}</span>
 })
 
 export default function Comment({ id, allowReply }) {
-    const { comment, childrenComments }  = useSelector(state => ({
-        comment: state.commentDetails[id],
-        childrenComments: state.connections[id]
-    }));
+    const comment = useSelector(state => state.commentDetails[id]);
+    const childrenComments  = useSelector(state => state.connections[id]);
+
+    const hasChildren = Array.isArray(childrenComments) && !!childrenComments.length;
+
+    const [showReplyForm, setShowReplyForm] = useState(hasChildren);
 
     const deleteComment = useCallback(() => deleteCommentAction(id), [id]);
+    
+    const replyToComment = useCallback(() => {
+        setShowReplyForm(true);
+    }, [])
+    
+    const editComment = useCallback(() => {
+        // TODO: implement
+        console.log('edit', id);
+    }, [id])
 
     if (!comment) {
         return null || id + ' Not available';
     }
 
-    const { name, message, edited, createdAt, parent } = comment;
+    const { name, message, edited, createdAt } = comment;
 
     const renderReplies = () => {
-        if (!Array.isArray(childrenComments) || !childrenComments.length)  {
-            return null;
-        }
-
         return (
             <div className='comment-replies'>
-                <CommentForm parentId={id} label={'Reply'} />
-                {childrenComments.map(commentId => <Comment key={commentId} id={commentId} />)}
-            </div>
+                {showReplyForm && <CommentForm parent={id} label={'Reply'} />}
+                {hasChildren && childrenComments?.map(commentId => 
+                    <Comment key={commentId} id={commentId} />
+                )}
+            </div>  
         )
     }
 
     return (
         <div className='comment-wrapper'>
-            <div className='comment wrapper'>
+            <div id={id} className='comment wrapper'>
                 <div className='head'>
-                    <h5>{name} {`${parent}`}</h5>
+                    <h5>{name}</h5>
                     <Time time={createdAt} />
                 </div>
                 <p className='message'>
@@ -50,8 +59,14 @@ export default function Comment({ id, allowReply }) {
                     {message}
                 </p>
                 <div className='actions'>
-                    {allowReply ? <Button variantType='text'>Reply</Button> : null}
-                    <Button variantType='text'>Edit</Button>
+                    {allowReply
+                      ? <Button 
+                            variantType='text'
+                            onClick={replyToComment}
+                        >
+                            Reply
+                        </Button> : null}
+                    <Button variantType='text' onClick={editComment}>Edit</Button>
                 </div>
                 <Button className="delete-comment-btn" onClick={deleteComment}>
                     <DeleteIcon size={10} />

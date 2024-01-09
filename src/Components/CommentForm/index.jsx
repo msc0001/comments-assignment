@@ -1,29 +1,60 @@
 import React, { useState } from 'react'
 import './styles.css';
-import { addCommentAction } from '../../Store';
 import InputComponent from '../InputComponent';
 import Button from '../Button';
+import { addCommentAction } from '../../Store/actions';
 
+const formInitialState = {
+    senderName: '',
+    commentMessage: ''
+};
 
 export default function CommentForm({
-    parentId,
+    parent,
     label = 'Comment'
 }) {
-    const [form, setForm] = useState({
-        name: '',
-        message: ''
-    });
+    const [form, setForm] = useState(formInitialState);
+    const [erroredFields, setErroredFields] = useState({});
     
-    const postComment = () => {
+    const postComment = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const name = form.senderName.trim();
+        const message = form.commentMessage.trim();
+
+        if (!name || !message) {
+            setErroredFields({
+                senderName: !name,
+                commentMessage: !message
+            })
+            return;
+        }
+
         addCommentAction({
-            message: form.message.trim(),
-            name: form.name.trim(),
-            parentId: parentId,
+            parent: parent,
+            message,
+            name,
         })
+        setForm(formInitialState);
     };
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        let { name, value } = e.target;
+
+        if (value) {
+            setErroredFields(prev => ({
+                ...prev,
+                [name]: false
+            }))
+        }
+
+        const limit = 250;
+
+        if (value.length > limit) {
+            value = value.substring(0, limit);
+        }
+
         setForm(prev => ({
             ...prev,
             [name]: value
@@ -36,15 +67,17 @@ export default function CommentForm({
             <div className='form-content'>
                 <InputComponent
                     label="Name"
-                    name="name"
-                    value={form.name}
+                    name="senderName"
+                    value={form.senderName}
+                    error={erroredFields.senderName}
                     onChange={handleInputChange}
                 />
                 <InputComponent
                     label={label}
                     type="textarea"
-                    name="message"
-                    value={form.message}
+                    name="commentMessage"
+                    value={form.commentMessage}
+                    error={erroredFields.commentMessage}
                     onChange={handleInputChange}
                 />
             </div>

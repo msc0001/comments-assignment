@@ -6,6 +6,7 @@ export default function InputComponent({
     label,
     value,
     onChange,
+    error,
     type = 'text'
 }) {
     const props = { 
@@ -13,8 +14,14 @@ export default function InputComponent({
         className: 'input-box',
         value,
         onChange,
+        autoComplete: "off",
         placeholder: label
     }
+
+    if (error) {
+        props.className += ` invalid`;
+    }
+
     return <div className='input-container'>
         {/* <label htmlFor={name}>{label}</label> */}
         {
@@ -22,5 +29,6 @@ export default function InputComponent({
             ? <textarea {...props} />
             : <input type={type} {...props} />
         }
+        <p className={`hint-text ${error ? 'error-text' : ''}`}>{error}</p>
     </div>
 }
