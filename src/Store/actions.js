@@ -4,6 +4,7 @@ import store, {
     EDIT_COMMENT,
     SET_INITIAL_STATE,
     TOGGLE_SORT,
+    RESET_STATE,
 } from ".";
 
 export const initialiseCommentsAction = () =>
@@ -26,3 +27,5 @@ export const toggleSortOrderAction = () =>
     store.dispatch({
         type: TOGGLE_SORT,
     });
+
+export const resetAppStateAction = () => store.dispatch({ type: RESET_STATE });

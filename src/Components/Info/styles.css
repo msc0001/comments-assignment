@@ -1,0 +1,12 @@
+.info-list {
+    font-size: 10px;
+    opacity: 0.8;
+}
+.info-list .reset-btn {
+    font-size: 10px;
+    font-weight: 400;
+    display: inline;
+    margin-left: 2px;
+    padding: 0;
+    text-decoration: underline;
+}
