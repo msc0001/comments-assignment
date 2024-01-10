@@ -1,11 +1,4 @@
-import {
-    ADD_COMMENT,
-    DELETE_COMMENT,
-    EDIT_COMMENT,
-    SET_INITIAL_STATE,
-    TOGGLE_SORT,
-} from ".";
-import { getComments } from "../Helpers";
+import { ADD_COMMENT, DELETE_COMMENT, EDIT_COMMENT, TOGGLE_SORT } from ".";
 
 const initialState = {
     counts: 0,
@@ -17,20 +10,6 @@ const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
     switch (action.type) {
-        case SET_INITIAL_STATE: {
-            if (state.comments) {
-                return state;
-            }
-            const { counts, comments, commentDetails, connections } =
-                getComments();
-            return {
-                ...state,
-                comments,
-                commentDetails,
-                connections,
-                counts,
-            };
-        }
         case ADD_COMMENT: {
             const { comment } = action;
             let { comments, counts, connections, commentDetails, sortOrder } =
