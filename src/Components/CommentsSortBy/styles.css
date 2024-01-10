@@ -1,0 +1,23 @@
+.sort-by {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 14px;
+    padding-top: 10px;
+}
+
+.sort-by-btn {
+    display: inline-flex;
+    color: #333;
+    margin-left: 8px;
+    padding: 0;
+}
+.sort-by-btn .down .sort-by-btn .up {
+    display: inline-flex;
+    margin-left: 6px;
+    animation: 0.8s ease;
+}
+
+.sort-by-btn .down {
+    transform: rotate(180deg);
+}

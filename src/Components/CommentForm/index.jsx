@@ -1,21 +1,18 @@
-import React, { useState } from 'react'
-import './styles.css';
-import InputComponent from '../InputComponent';
-import Button from '../Button';
-import { addCommentAction } from '../../Store/actions';
+import React, { useState } from "react";
+import "./styles.css";
+import InputComponent from "../InputComponent";
+import Button from "../Button";
+import { addCommentAction } from "../../Store/actions";
 
 const formInitialState = {
-    senderName: '',
-    commentMessage: ''
+    senderName: "",
+    commentMessage: "",
 };
 
-export default function CommentForm({
-    parent,
-    label = 'Comment'
-}) {
+export default function CommentForm({ parent, label = "Comment" }) {
     const [form, setForm] = useState(formInitialState);
     const [erroredFields, setErroredFields] = useState({});
-    
+
     const postComment = (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -26,8 +23,8 @@ export default function CommentForm({
         if (!name || !message) {
             setErroredFields({
                 senderName: !name,
-                commentMessage: !message
-            })
+                commentMessage: !message,
+            });
             return;
         }
 
@@ -35,7 +32,7 @@ export default function CommentForm({
             parent: parent,
             message,
             name,
-        })
+        });
         setForm(formInitialState);
     };
 
@@ -43,10 +40,10 @@ export default function CommentForm({
         let { name, value } = e.target;
 
         if (value) {
-            setErroredFields(prev => ({
+            setErroredFields((prev) => ({
                 ...prev,
-                [name]: false
-            }))
+                [name]: false,
+            }));
         }
 
         const limit = 250;
@@ -55,16 +52,16 @@ export default function CommentForm({
             value = value.substring(0, limit);
         }
 
-        setForm(prev => ({
+        setForm((prev) => ({
             ...prev,
-            [name]: value
-        }))
-    }
+            [name]: value,
+        }));
+    };
 
     return (
-        <form className='comment-form wrapper' onSubmit={postComment}>
-            <h5 className='form-label'>{label}</h5>
-            <div className='form-content'>
+        <form className="comment-form wrapper" onSubmit={postComment}>
+            <h5 className="form-label">{label}</h5>
+            <div className="form-content">
                 <InputComponent
                     label="Name"
                     name="senderName"
@@ -81,7 +78,7 @@ export default function CommentForm({
                     onChange={handleInputChange}
                 />
             </div>
-            <div className='form-actions'>
+            <div className="form-actions">
                 <Button type="submit">POST</Button>
             </div>
         </form>

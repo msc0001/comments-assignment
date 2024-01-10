@@ -3,6 +3,7 @@ import {
     DELETE_COMMENT,
     EDIT_COMMENT,
     SET_INITIAL_STATE,
+    TOGGLE_SORT,
 } from ".";
 import { getComments } from "../Helpers";
 
@@ -11,6 +12,7 @@ const initialState = {
     commentDetails: {},
     connections: {},
     comments: [],
+    sortOrder: 0, // 0 - decending, 1-acending
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -124,6 +126,12 @@ const reducer = (state = initialState, action = {}) => {
                         edited: true,
                     },
                 },
+            };
+        }
+        case TOGGLE_SORT: {
+            return {
+                ...state,
+                sortOrder: !state.sortOrder,
             };
         }
         default:
