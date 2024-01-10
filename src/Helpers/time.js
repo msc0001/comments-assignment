@@ -36,7 +36,7 @@ const ith = (i) =>
         1: "st",
         2: "nd",
         3: "rd",
-    }[i % 10] || "st");
+    }[i % 10] || "th");
 
 export const getTimeString = (time) => {
     const { year, month, date } = formatDate(time);
