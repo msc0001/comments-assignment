@@ -1,4 +1,10 @@
-import { ADD_COMMENT, DELETE_COMMENT, EDIT_COMMENT, TOGGLE_SORT } from ".";
+import {
+    ADD_COMMENT,
+    DELETE_COMMENT,
+    EDIT_COMMENT,
+    TOGGLE_SORT,
+    RESET_STATE,
+} from ".";
 
 const initialState = {
     counts: 0,
@@ -127,6 +133,9 @@ const reducer = (state = initialState, action = {}) => {
                 comments,
                 connections,
             };
+        }
+        case RESET_STATE: {
+            return initialState;
         }
         default:
             return state;
