@@ -11,7 +11,7 @@ const initialState = {
     commentDetails: {},
     connections: {},
     comments: [],
-    sortOrder: false, // false - decending, true-acending
+    sortOrder: true, // false - decending, true-acending
 };
 
 const reducer = (state = initialState, action = {}) => {
