@@ -1,12 +1,17 @@
-import { ADD_COMMENT, DELETE_COMMENT, EDIT_COMMENT, SET_INITIAL_STATE } from ".";
+import {
+    ADD_COMMENT,
+    DELETE_COMMENT,
+    EDIT_COMMENT,
+    SET_INITIAL_STATE,
+} from ".";
 import { getComments } from "../Helpers";
 
 const initialState = {
     counts: 0,
     commentDetails: {},
     connections: {},
-    comments: []
-}
+    comments: [],
+};
 
 const reducer = (state = initialState, action = {}) => {
     switch (action.type) {
@@ -14,19 +19,20 @@ const reducer = (state = initialState, action = {}) => {
             if (state.comments) {
                 return state;
             }
-            const { counts, comments, commentDetails, connections } = getComments();
+            const { counts, comments, commentDetails, connections } =
+                getComments();
             return {
                 ...state,
                 comments,
                 commentDetails,
                 connections,
-                counts
-            }
+                counts,
+            };
         }
         case ADD_COMMENT: {
             const { comment } = action;
             let { comments, counts, connections, commentDetails } = state;
-            
+
             counts += 1;
 
             comment.id = counts;
@@ -35,17 +41,20 @@ const reducer = (state = initialState, action = {}) => {
                 ...commentDetails,
                 [comment.id]: {
                     ...comment,
-                    createdAt: Date.now()
-                }
-            }
-            
+                    createdAt: Date.now(),
+                },
+            };
+
             if (!comment.parent) {
                 comments = [comment.id, ...state.comments];
             } else {
                 connections = {
                     ...connections,
-                    [comment.parent]: [comment.id, ...(connections[comment.parent] || [])]
-                }
+                    [comment.parent]: [
+                        comment.id,
+                        ...(connections[comment.parent] || []),
+                    ],
+                };
             }
 
             return {
@@ -53,16 +62,12 @@ const reducer = (state = initialState, action = {}) => {
                 comments,
                 commentDetails,
                 connections,
-                counts
+                counts,
             };
         }
         case DELETE_COMMENT: {
             const { commentId } = action;
-            let {
-                commentDetails,
-                comments,
-                connections
-            } = state;
+            let { commentDetails, comments, connections } = state;
 
             const comment = commentDetails[commentId];
 
@@ -72,26 +77,28 @@ const reducer = (state = initialState, action = {}) => {
 
             commentDetails = {
                 ...commentDetails,
-                [commentId]: undefined
-            }
+                [commentId]: undefined,
+            };
 
             if (!comment.parent) {
-                comments = comments.filter(id => id !== commentId);
+                comments = comments.filter((id) => id !== commentId);
             } else {
-                const children = connections[comment.parent].filter(id => id !== commentId);
-                
+                const children = connections[comment.parent].filter(
+                    (id) => id !== commentId
+                );
+
                 connections = {
                     ...connections[comment.parent],
-                    [comment.parent]: children
-                }
+                    [comment.parent]: children,
+                };
             }
 
             return {
                 ...state,
                 comments,
                 commentDetails,
-                connections
-            }
+                connections,
+            };
         }
         case EDIT_COMMENT: {
             const { commentId, newMessage } = action;
@@ -103,7 +110,7 @@ const reducer = (state = initialState, action = {}) => {
 
             const comment = commentDetails[commentId];
 
-            if (comment.message === newMessage) {
+            if (comment.message === newMessage || !newMessage) {
                 return state;
             }
 
@@ -114,14 +121,14 @@ const reducer = (state = initialState, action = {}) => {
                     [commentId]: {
                         ...comment,
                         message: newMessage,
-                        edited: true
-                    }
-                }
-            }
+                        edited: true,
+                    },
+                },
+            };
         }
         default:
             return state;
     }
-}
+};
 
 export default reducer;

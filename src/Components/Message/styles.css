@@ -1,0 +1,13 @@
+.message-text-container {
+    display: inline;
+}
+
+.message-text-container .show-message-btn {
+    margin-left: 6px;
+    padding: 0;
+    font-weight: 400;
+}
+
+.update-btn-grp {
+    margin-top: -10px;
+}

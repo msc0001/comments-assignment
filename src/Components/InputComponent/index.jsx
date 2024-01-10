@@ -1,5 +1,5 @@
-import React from 'react'
-import './styles.css';
+import React from "react";
+import "./styles.css";
 
 export default function InputComponent({
     name,
@@ -7,28 +7,30 @@ export default function InputComponent({
     value,
     onChange,
     error,
-    type = 'text'
+    type = "text",
 }) {
-    const props = { 
+    const props = {
         name,
-        className: 'input-box',
+        className: "input-box",
         value,
         onChange,
         autoComplete: "off",
-        placeholder: label
-    }
+        placeholder: label,
+    };
 
     if (error) {
         props.className += ` invalid`;
     }
 
-    return <div className='input-container'>
-        {/* <label htmlFor={name}>{label}</label> */}
-        {
-            type === 'textarea'
-            ? <textarea {...props} />
-            : <input type={type} {...props} />
-        }
-        <p className={`hint-text ${error ? 'error-text' : ''}`}>{error}</p>
-    </div>
+    return (
+        <div className={`input-container${error ? " invalid" : ""}`}>
+            {/* <label htmlFor={name}>{label}</label> */}
+            {type === "textarea" ? (
+                <textarea {...props} />
+            ) : (
+                <input type={type} {...props} />
+            )}
+            <p className={`hint-text ${error ? "error-text" : ""}`}>{error}</p>
+        </div>
+    );
 }

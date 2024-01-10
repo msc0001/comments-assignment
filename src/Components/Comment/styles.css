@@ -4,7 +4,7 @@
     padding-bottom: 0;
 }
 
-.comment .head  {
+.comment .head {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -21,7 +21,7 @@
 .comment .head .date {
     font-size: 12px;
     font-weight: 500;
-    flex: 0;
+    flex: 0 0;
     white-space: nowrap;
     padding-left: 10px;
 }
@@ -29,15 +29,7 @@
 .comment .message {
     margin: 6px 0;
     font-size: 14px;
-}
-.comment .message-text-container {
-    display: inline;
-}
-
-.comment .message-text-container .show-message-btn {
-    margin-left: 6px;
-    padding: 0;
-    font-weight: 400;
+    position: relative;
 }
 
 .comment-replies {

@@ -13,6 +13,23 @@
     border: 2px solid #e94c4c;
 }
 
-.input-container .input-box:active, .input-container .input-box:focus {
-    border: 2px solid #027be5;
+.input-container .input-box:active,
+.input-container .input-box:focus {
+    border-color: #027be5;
+}
+
+.input-container .input-box:invalid,
+.input-container .input-box:invalid:focus {
+    border-color: #e94c4c;
+}
+
+.input-container.invalid .hint-text {
+    color: #e94c4c;
+}
+
+.input-container .hint-text {
+    height: 10px;
+    font-size: 10px;
+    line-height: 8px;
+    margin: 0;
 }
