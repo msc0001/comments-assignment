@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "./styles.css";
 import Button from "../Button";
@@ -9,7 +9,14 @@ import { deleteCommentAction } from "../../Store/actions";
 import MessageWrapper from "../Message";
 
 const Time = memo(({ time }) => {
-    return <span className="date">{getTimeString(time)}</span>;
+    const [timeString, setTimeString] = useState(getTimeString(time));
+
+    useEffect(() => {
+        const i = setInterval(() => setTimeString(getTimeString(time)), 10000);
+        return () => clearInterval(i);
+    }, [time]);
+
+    return <span className="date">{timeString}</span>;
 });
 
 export default function Comment({ id, allowReply }) {

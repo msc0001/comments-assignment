@@ -28,7 +28,9 @@ export const formatDate = (dateString) => {
 
     const mm = d.getMinutes();
 
-    return { year, month, m, date, h, hh, t, mm };
+    const s = d.getSeconds();
+
+    return { year, month, m, date, h, hh, t, mm, s };
 };
 
 const ith = (i) =>
@@ -39,7 +41,30 @@ const ith = (i) =>
     }[i % 10] || "th");
 
 export const getTimeString = (time) => {
-    const { year, month, date } = formatDate(time);
+    const { year, month, date, h, t, mm } = formatDate(time);
+    const { date: nowDate } = formatDate(Date.now());
+
+    const diff = (Date.now() - time) / 1000;
+
+    if (diff < 5) {
+        // 1sec
+        return "just now";
+    }
+
+    if (diff < 60) {
+        // 1 min
+        return `${Math.floor(diff)} sec ago`;
+    }
+
+    if (diff < 3600) {
+        // 1hr
+        return `${Math.floor(diff / 60)} min ago`;
+    }
+
+    if (date === nowDate) {
+        // 1 day
+        return `${h}:${mm < 10 ? "0" : ""}${mm} ${t}`;
+    }
 
     return `${date}${ith(date)} ${month}, ${year}`;
 };
