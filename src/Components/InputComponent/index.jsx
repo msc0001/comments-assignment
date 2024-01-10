@@ -8,6 +8,7 @@ export default function InputComponent({
     onChange,
     error,
     type = "text",
+    onKeyDown,
 }) {
     const props = {
         name,
@@ -26,7 +27,7 @@ export default function InputComponent({
         <div className={`input-container${error ? " invalid" : ""}`}>
             {/* <label htmlFor={name}>{label}</label> */}
             {type === "textarea" ? (
-                <textarea {...props} />
+                <textarea {...props} onKeyDown={onKeyDown} />
             ) : (
                 <input type={type} {...props} />
             )}

@@ -58,6 +58,12 @@ export default function CommentForm({ parent, label = "Comment" }) {
         }));
     };
 
+    const onKeyDown = (e) => {
+        if (e.keyCode === 13 && e.metaKey) {
+            postComment(e);
+        }
+    };
+
     return (
         <form className="comment-form wrapper" onSubmit={postComment}>
             <h5 className="form-label">{label}</h5>
@@ -76,6 +82,7 @@ export default function CommentForm({ parent, label = "Comment" }) {
                     value={form.commentMessage}
                     error={erroredFields.commentMessage}
                     onChange={handleInputChange}
+                    onKeyDown={onKeyDown}
                 />
             </div>
             <div className="form-actions">

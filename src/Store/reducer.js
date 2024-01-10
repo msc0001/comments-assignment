@@ -12,7 +12,7 @@ const initialState = {
     commentDetails: {},
     connections: {},
     comments: [],
-    sortOrder: 0, // 0 - decending, 1-acending
+    sortOrder: false, // false - decending, true-acending
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -48,7 +48,7 @@ const reducer = (state = initialState, action = {}) => {
                 },
             };
 
-            const addAhead = sortOrder === 0;
+            const addAhead = sortOrder;
 
             if (!comment.parent) {
                 comments = addAhead
