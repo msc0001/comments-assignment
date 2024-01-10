@@ -33,7 +33,8 @@ const reducer = (state = initialState, action = {}) => {
         }
         case ADD_COMMENT: {
             const { comment } = action;
-            let { comments, counts, connections, commentDetails } = state;
+            let { comments, counts, connections, commentDetails, sortOrder } =
+                state;
 
             counts += 1;
 
@@ -47,15 +48,18 @@ const reducer = (state = initialState, action = {}) => {
                 },
             };
 
+            const addAhead = sortOrder === 0;
+
             if (!comment.parent) {
-                comments = [comment.id, ...state.comments];
+                comments = addAhead
+                    ? [comment.id, ...state.comments]
+                    : [...state.comments, comment.id];
             } else {
                 connections = {
                     ...connections,
-                    [comment.parent]: [
-                        comment.id,
-                        ...(connections[comment.parent] || []),
-                    ],
+                    [comment.parent]: addAhead
+                        ? [comment.id, ...(connections[comment.parent] || [])]
+                        : [...(connections[comment.parent] || []), comment.id],
                 };
             }
 
@@ -129,9 +133,20 @@ const reducer = (state = initialState, action = {}) => {
             };
         }
         case TOGGLE_SORT: {
+            const newSortOrder = !state.sortOrder;
+
+            const comments = [...state.comments].reverse();
+
+            const connections = {};
+            Object.keys(state.connections).forEach((id) => {
+                connections[id] = [...state.connections[id]].reverse();
+            });
+
             return {
                 ...state,
-                sortOrder: !state.sortOrder,
+                sortOrder: newSortOrder,
+                comments,
+                connections,
             };
         }
         default:
